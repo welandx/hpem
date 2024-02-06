@@ -1,8 +1,7 @@
 (setq package-archives '(("gnu"    . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                           ("melpa"  . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-
-(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path (concat user-emacs-directory "lisp"))
 (unless (bound-and-true-p my-computer-has-smaller-memory-p)
   (setq gc-cons-percentage 0.6)
   (setq gc-cons-threshold most-positive-fixnum))
@@ -62,10 +61,10 @@
 (setq-default cursor-in-non-selected-windows nil)
 (setq word-wrap-by-category t)
 (toggle-word-wrap)
+;; (setq-default truncate-lines t)
 (setq byte-compile-warnings nil)
 (setq shr-max-image-proportion 0.7)
 (fset 'yes-or-no-p 'y-or-n-p)
-(add-to-list 'load-path (concat user-emacs-directory "lisp")) ;; --init-dir
 (setq-default default-directory "~/")
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file t)
@@ -131,7 +130,8 @@
 (use-package nov
   :ensure t
   :config
-  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode)))
+  (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  (add-hook 'nov-mode-hook (lambda () (setq truncate-lines t))))
 
 (use-package immersive-translate
   :ensure t

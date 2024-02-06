@@ -10,7 +10,7 @@
 
 (defcustom minemacs-fonts-plist
   '(:default
-     ((:family "SauceCodePro Nerd Font Mono" :height 220)
+     ((:family "SauceCodePro Nerd Font Mono" :height 160)
        (:family "FantasqueSansM Nerd Font Mono" :height 160)
      (:family "SauceCodePro Nerd Font" :height 160)
      (:family "MonoLisa Nasy" :height 150)
