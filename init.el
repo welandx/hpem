@@ -145,7 +145,28 @@
 (load-theme 'modus-operandi t)
 
 (use-package gptel
-  :ensure t)
+  :ensure t
+  :config
+  (setq-default gptel-default-mode 'org-mode)
+  (setq gpt-liaobot
+    (gptel-make-openai "liaobot"
+      :host "ai.liaobots.work"
+      :protocol "https"
+      :endpoint "/v1/chat/completions"
+      :header (lambda () `(("Authorization" . ,(concat "Bearer " (gptel--get-api-key)))))
+      :key 'gptel-api-key
+      :stream t
+      :models '("gpt-3.5-turbo" "gpt-3.5-turbo-16k")))
+  (setq openai-api
+    (gptel-make-openai "openai-api"
+      :host "api.chatanywhere.tech"
+      :protocol "https"
+      :endpoint "/v1/chat/completions"
+      :header (lambda () `(("Authorization" . ,(concat "Bearer " (gptel--get-api-key)))))
+      :key 'gptel-api-key
+      :stream t
+      :models '("gpt-3.5-turbo" "gpt-3.5-turbo-16k")))
+  (setq-default gptel-backend gpt-liaobot))
 
 (use-package nov
   :ensure t
@@ -162,8 +183,10 @@
   :hook
   (nov-mode . immersive-translate-auto-mode)
   :config
-  (setq immersive-translate-backend 'baidu
-	immersive-translate-baidu-appid "20231121001887650")
+  (setq immersive-translate-backend 'chatgpt
+      immersive-translate-chatgpt-host "api.chatanywhere.tech")
+  ;; (setq immersive-translate-backend 'baidu
+  ;;       immersive-translate-baidu-appid "20231121001887650")
   (setq immersive-translate-exclude-shr-tag (remove 'div immersive-translate-exclude-shr-tag)))
 
 (defun my-cleanup-gc ()
