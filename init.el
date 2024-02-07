@@ -139,7 +139,7 @@
   (setq corfu-auto-prefix 1)
   (setq corfu-auto-delay 0.1)
   (setq completion-styles '(orderless basic)))
-
+(setq large-file-warning-threshold 100000000)
 
 ;;; customize
 (load-theme 'modus-operandi t)
