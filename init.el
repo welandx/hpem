@@ -159,6 +159,8 @@
   :init
   (add-hook 'elfeed-show-mode-hook #'immersive-translate-setup)
   (add-hook 'nov-pre-html-render-hook #'immersive-translate-setup)
+  :hook
+  (nov-mode . immersive-translate-auto-mode)
   :config
   (setq immersive-translate-backend 'baidu
 	immersive-translate-baidu-appid "20231121001887650")
