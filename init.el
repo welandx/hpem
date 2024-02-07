@@ -123,23 +123,46 @@
 (defalias 'scroll-down-command '+pixel-scroll-interpolate-up)
 (require 'init-lib)
 (require 'init-fonts)
+(use-package corfu
+  :ensure t
+  :hook ((prog-mode . corfu-mode)
+          (shell-mode . corfu-mode)
+          (eshell-mode . corfu-mode))
+  :bind
+  (:map corfu-map
+    ("SPC" . corfu-insert-separator)
+    ("C-<return>" . newline))
+
+  :config
+  (setq corfu-auto t)
+  (setq corfu-quit-no-match t)
+  (setq corfu-auto-prefix 1)
+  (setq corfu-auto-delay 0.1)
+  (setq completion-styles '(orderless basic)))
+
+
+;;; customize
+(load-theme 'modus-operandi t)
 
 (use-package gptel
   :ensure t)
 
 (use-package nov
   :ensure t
-  :config
+  :init
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
+  :config
   (add-hook 'nov-mode-hook (lambda () (setq truncate-lines t))))
 
 (use-package immersive-translate
   :ensure t
+  :init
+  (add-hook 'elfeed-show-mode-hook #'immersive-translate-setup)
+  (add-hook 'nov-pre-html-render-hook #'immersive-translate-setup)
   :config
   (setq immersive-translate-backend 'baidu
 	immersive-translate-baidu-appid "20231121001887650")
-  (add-hook 'elfeed-show-mode-hook #'immersive-translate-setup)
-  (add-hook 'nov-pre-html-render-hook #'immersive-translate-setup))
+  (setq immersive-translate-exclude-shr-tag (remove 'div immersive-translate-exclude-shr-tag)))
 
 (defun my-cleanup-gc ()
   "Clean up gc."
