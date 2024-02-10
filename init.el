@@ -178,7 +178,9 @@
 	    (lambda ()
 	      (setq truncate-lines nil)
 	      (setq cursor-type nil)
-	      (setq nobreak-char-display nil)))
+	      (setq nobreak-char-display nil)
+	      (visual-line-mode)
+	      (text-scale-set 2)))
   :config
   (setq nov-text-width t))
 
@@ -187,15 +189,31 @@
   :init
   (add-hook 'elfeed-show-mode-hook #'immersive-translate-setup)
   (add-hook 'nov-pre-html-render-hook #'immersive-translate-setup)
-  :hook
-  (nov-mode . immersive-translate-auto-mode)
+  ;;:hook
+  ;;(nov-mode . immersive-translate-auto-mode)
+  :bind
+  ("C-c i" . immersive-translate-auto-mode)
   :config
   (setq immersive-translate-backend 'chatgpt
       immersive-translate-chatgpt-host "api.chatanywhere.tech")
   ;; (setq immersive-translate-backend 'baidu
   ;;       immersive-translate-baidu-appid "20231121001887650")
-  (setq immersive-translate-exclude-shr-tag (remove 'div immersive-translate-exclude-shr-tag)))
+  (setq-default immersive-translate-exclude-shr-tag
+		(remove 'div immersive-translate-exclude-shr-tag)))
 
+(use-package writeroom-mode
+  :ensure t
+  :bind
+  (:map writeroom-mode-map
+	("C-c m" . writeroom-toggle-mode-line))
+  :hook
+  (nov-mode . writeroom-mode)
+  :config
+  (setq writeroom-width 60)
+  (setq writeroom-global-effects
+	'(writeroom-set-bottom-divider-width)))
+
+;;; init
 (defun my-cleanup-gc ()
   "Clean up gc."
   (setq gc-cons-threshold  67108864) ; 64M
