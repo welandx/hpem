@@ -172,11 +172,13 @@
   :ensure t
   :init
   (add-to-list 'auto-mode-alist '("\\.epub\\'" . nov-mode))
-  :config
   (add-hook 'nov-mode-hook
 	    (lambda ()
-	      (setq-local truncate-lines t)
-	      (setq-local cursor-type nil))))
+	      (setq truncate-lines nil)
+	      (setq cursor-type nil)
+	      (setq nobreak-char-display nil)))
+  :config
+  (setq nov-text-width t))
 
 (use-package immersive-translate
   :ensure t
