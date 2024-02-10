@@ -1,0 +1,7 @@
+* README
+| key   | func                          | map       |
+|-------+-------------------------------+-----------|
+| C-c o | recentf-open                  | global    |
+| C-c i | immersive-translate-auto-mode | global    |
+| C-c m | writeroom-toggle-mode-line    | writeroom |
+
