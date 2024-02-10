@@ -86,9 +86,11 @@
   :hook (rfn-eshadow-update-overlay . vertico-directory-tidy))
 (add-hook 'prog-mode-hook 'electric-pair-local-mode)
 (add-hook 'conf-mode-hook 'electric-pair-local-mode)
+(savehist-mode)
 (use-package saveplace
   :ensure nil
   :hook
+  (prog-mode . save-place-mode)
   (text-mode . save-place-mode))
 (use-package imenu
   :bind
