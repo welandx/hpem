@@ -213,6 +213,18 @@
   (setq writeroom-global-effects
 	'(writeroom-set-bottom-divider-width)))
 
+(use-package calibredb
+  :ensure t
+  :bind
+  ("C-c f" . calibredb-find-counsel)
+  ("C-c c" . calibredb)
+  :config
+  (setq calibredb-root-dir "~/Calibre Library")
+  (setq calibredb-db-dir (expand-file-name "metadata.db" calibredb-root-dir)))
+
+(use-package counsel
+  :ensure t)
+
 ;;; init
 (defun my-cleanup-gc ()
   "Clean up gc."
